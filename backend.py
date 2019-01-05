@@ -99,7 +99,8 @@ def _status():
     heatingStatus = thermCursor.execute('SELECT * from thermostat').fetchone()
     mainSensor = sensorCursor.execute('SELECT * from sensors WHERE id=0').fetchone()
     secondSensor = sensorCursor.execute('SELECT * from sensors WHERE id=1').fetchone()
-    
+    thirdSensor = sensorCursor.execute('SELECT * from sensors WHERE id=2').fetchone()
+     
     sensor_last_update = datetime.strptime(secondSensor['last_update'], "%Y-%m-%d %H:%M:%S.%f")
     if (datetime.now() - sensor_last_update).seconds > 60:
         sensor_fail = True
@@ -132,6 +133,8 @@ def _status():
             <div id="current_weather_temp">{current_weather_temp}</div>\
             <div id="current_weather_icon">{current_weather_icon}</div>\
             <div id="current_weather_summary">{current_weather_summary}</div>\
+            <div id="third_temperature">{third_temperature}</div>\
+            <div id="third_humidity">{third_humidity}</div>\
             </div>'.format( 
                     main_temperature = mainSensor['temperature'],
                     main_humidity = mainSensor['humidity'],
@@ -143,6 +146,8 @@ def _status():
                     current_weather_temp = currentWeather['current_temperature'],
                     current_weather_icon = "<i class=\"wi wi-%s\"></i> " % currentWeather['current_icon'] ,
                     current_weather_summary = currentWeather['current_summary'],
+                    third_temperature = thirdSensor['temperature'], 
+                    third_humidity = thirdSensor['humidity'],
                     )
         return html
 
