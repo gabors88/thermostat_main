@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Thasadith');
+
+#body {
+  font-family: Thasadith, sans-serif;
+  width:350;
+  height:352;
+  padding: 0;
+  color:white;
+}
+#article {
+  margin: auto;
+  width: 30em;
+}
+#h1 {
+  font-size: 3em;
+  line-height: 1em;
+  text-align: center;
+  margin: 0.5em 0;
+}
+#p {
+  margin: 1.5em 0;
+}
+#figure {
+  margin: 3em auto;
+  width: 368px;
+  height: 152px;
+}
+#canvas {
+  display: block;
+  float: left;
+  margin-left: 8px;
+  margin-top: 8px;
+}
+#pre {
+  font: 77.8%/1.5em "Lucida Sans Typewriter", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace;
+  margin: 3.375em 1.6875em;
+}
+#a, pre span.comment {
+  color: royalblue;
+}
+#a:visited, pre span.constant {
+  color: indianred;
+}
+
+
+div.temperature {
+font-size: 57px;
+font-family: Thasadith, Helvetica, sans-serif;
+}
+
+div.humidity {
+font-family: Thasadith, Helvetica, sans-serif;
+margin:-20px;
+font-size: 21px
+}
+
+div.target_temperature {
+font-size: 45px;
+font-family: Thasadith, Helvetica, sans-serif;
+}
+
+div.current_weather_summary {
+font-family: Thasadith, Helvetica, sans-serif;
+}
+
+div.current_weather_temperature {
+font-family: Thasadith, Helvetica, sans-serif;
+}
+
+
+#wrapper-main {
+width:330px;
+margin: auto;
+text-align:center;
+margin-bottom:5px;
+margin-top:10px;
+padding: 3px;
+}
+
+#left-main {
+float: left;
+width: 120px;
+text-align:center;
+padding:5px;
+padding-right:15px;
+margin-top:5px;
+}
+#right-main {
+float: right;
+width: 120px;
+text-align:center;
+padding:5px;
+padding-left:15px;
+margin-top:5px;
+}
+#body-center {
+float: center;
+width 300px;
+text-align: center;
+margin-top:20px;
+}
+#left-body {
+float: left;
+width: 90px;
+text-align:center;
+}
+#right-body {
+float: right;
+width: 90px;
+text-align:center;
+}
+#center-center {
+margin:auto;
+width:70px;
+text-align:center;
+
+}
+
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;   
+    background: grey;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%; 
+    background: white;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
