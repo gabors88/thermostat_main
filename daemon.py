@@ -77,7 +77,7 @@ class thermoDaemon(object):
 
         self.thermostatMode = 0
 #        self.mainTemp = 0
-
+        self.sensor_fail = False
         while True:
 
             weather.getCurrentWeather()    
@@ -101,22 +101,37 @@ class thermoDaemon(object):
 
             self.thermostatMode = self.status['status']
             self.targetTemp = self.status['target_temp']
-            
 
+            self.sensor_last_update = datetime.strptime(self.secondSensor['last_update'], "%Y-%m-%d %H:%M:%S.%f")
+            if (datetime.now() - self.sensor_last_update).seconds > 60:
+                self.sensor_fail = True
+            else:
+                self.sensor_fail = False
+    
 
             if (self.thermostatMode == 0 and self.relayMode == "ON"):
                 relay.turnOffHeating()
                 print("Relay is on but heating is turned off....turning off heating")
 
-            if (self.thermostatMode == 1 and self.relayMode == "OFF" and (self.targetTemp > self.mainTemp and self.targetTemp > self.secondTemp)):
-                relay.turnOnHeating()
-                print("Turning on heating, beacuse:", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
+            if (self.sensor_fail == False):
+                if (self.thermostatMode == 1 and self.relayMode == "OFF" and (self.targetTemp > self.mainTemp and self.targetTemp > self.secondTemp)):
+                    relay.turnOnHeating()
+                    print("Turning on heating, beacuse:", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
             
-            if (self.thermostatMode == 1 and self.relayMode == "ON" and (self.targetTemp < self.mainTemp or self.targetTemp < self.secondTemp)):
-                relay.turnOffHeating()
-                print("Turning off heating, beacuse:", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
+                if (self.thermostatMode == 1 and self.relayMode == "ON" and (self.targetTemp < self.mainTemp or self.targetTemp < self.secondTemp)):
+                    relay.turnOffHeating()
+                    print("Turning off heating, beacuse:", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
             else:
-                if (self.thermostatMode == 0 and self.relayMode == "OFF"):
+                if (self.thermostatMode == 1 and self.relayMode == "OFF" and (self.targetTemp > self.mainTemp)):
+                    relay.turnOnHeating()
+                    print("Turning on heating, beacuse (SECOND failed):", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
+            
+                if (self.thermostatMode == 1 and self.relayMode == "ON" and (self.targetTemp < self.mainTemp)):
+                    relay.turnOffHeating()
+                    print("Turning off heating, beacuse (SECOND failed):", self.thermostatMode, self.relayMode, self.targetTemp, self.mainTemp, self.secondTemp) 
+            
+            
+            if (self.thermostatMode == 0 and self.relayMode == "OFF"):
                     print("Idle")
             time.sleep(5)
 
