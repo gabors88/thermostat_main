@@ -10,7 +10,7 @@ import sqlite3
 
 #########################################
 
-api_key = "f1bd57e9e6838eb22b5a26526e2eebba"
+api_key = "XXXXXX"
 lat = 47.4821
 lng = 19.1575
 
